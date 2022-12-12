@@ -2,6 +2,7 @@ process.on("uncaughtException", (error) => {
   console.error("UNCAUGHT EXCEPTION ERROR");
   console.error("Server is now shutting down...", "🔥");
   console.error(error.name, error.message);
+  console.log(error.stack);
   process.exit(1);
 });
 

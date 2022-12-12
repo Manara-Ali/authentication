@@ -7,6 +7,9 @@ const morgan = require("morgan");
 // IMPORT PRODUCTS ROUTER
 const productRouter = require("./routers/productsRouter");
 
+// IMPORT USER ROUTER
+const userRouter = require("./routers/userRouter");
+
 // IMPORT ERROR CONTROLLER
 const errorController = require("./controllers/errorController");
 
@@ -25,6 +28,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Create routes
 app.use("/api/v1/products", productRouter);
+app.use("/api/v1/users", userRouter);
 
 // Create a catch all route
 app.use((req, res, next) => {
