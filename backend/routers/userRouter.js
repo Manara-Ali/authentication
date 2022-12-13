@@ -12,11 +12,11 @@ const router = express.Router();
 
 // Re-route users request based on the path
 router.route("/signup").post(authController.signup);
-// router
-//   .route("/login-page")
-//   .get(authController.isLoggedIn, authController.logginStatus);
 router.route("/login").post(authController.login);
 router.route("/logout").post(authController.logout);
+router
+  .route("/loggedin")
+  .get(authController.isLoggedIn, authController.logginStatus);
 
 // Re-route users request to reset password
 router.route("/forgot/password").post(authController.forgotPassword);

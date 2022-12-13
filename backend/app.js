@@ -4,6 +4,9 @@ const express = require("express");
 // IMPORT MORGAN
 const morgan = require("morgan");
 
+// IMPORT COOKIE PARSER
+const cookieParser = require("cookie-parser");
+
 // IMPORT PRODUCTS ROUTER
 const productRouter = require("./routers/productsRouter");
 
@@ -21,6 +24,9 @@ const app = express();
 
 // Define middleware to read data from the body
 app.use(express.json());
+
+// Use cookie parser
+app.use(cookieParser());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
