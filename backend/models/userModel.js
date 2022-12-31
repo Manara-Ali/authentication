@@ -7,17 +7,30 @@ const mongoose = require("mongoose");
 // IMPORT BCRYPTJS TO HELP HASH USERS PASSWORD
 const bcrypt = require("bcryptjs");
 
+// IMPORT VALIDATOR TO HELP WITH DATA VALIDATION
+const validator = require("validator");
+
 // Use mongoose to create user schema
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, "Each user must have a name"],
+      validate: {
+        validator: function (value) {
+          return value.length > 1;
+        },
+        message: "Name must be more than a single character",
+      },
     },
     email: {
       type: String,
       required: [true, "Each user must have an email address"],
       unique: true,
+      validate: {
+        validator: validator.isEmail,
+        message: "Invalid email address! Please provide valid email address.",
+      },
     },
     password: {
       type: String,

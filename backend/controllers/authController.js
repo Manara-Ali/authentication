@@ -37,8 +37,8 @@ const createAndSendToken = (res, user, statusCode) => {
   user.active = undefined;
   user.isAdmin = undefined;
 
-  // Remove email from output
-  user.email = undefined;
+  // Remove when the password was changed
+  user.passwordChangedAt = undefined;
 
   // Define cookie options
   const cookieOptions = {

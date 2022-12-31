@@ -53,6 +53,24 @@ const handleDuplicateError = (error) => {
   return applicationError;
 };
 
+// 2. VALIDATION ERROR
+const handleValidationError = (error) => {
+  // Retrieve the error values
+  const errorValues = Object.values(error)[0];
+
+  // Retrieve the error object
+  const errorObj = Object.entries(errorValues)[0][1];
+
+  // Retrieve the error message
+  const errorMsg = errorObj.message;
+
+  // Create a new instance of an application error
+  const applicationError = new ApplicationError(errorMsg, 400);
+
+  // Return the application error
+  return applicationError;
+};
+
 // Create a function to send errors in development
 const sendDevError = (error, res) => {
   // Send response
@@ -111,12 +129,25 @@ exports.globalErrorHandler = (error, req, res, next) => {
       sendProdError(mongooseError, res);
     }
 
+    // CASTERROR
     if (error.name === "CastError") {
       // Make a copy of the error
       mongooseError = { ...error };
 
       // Call a function that can handle the error
       mongooseError = handleCastError(mongooseError);
+
+      // Send response
+      sendProdError(mongooseError, res);
+    }
+
+    // VALIDATIONERROR
+    if (error.name === "ValidationError") {
+      // Make a copy of the current error
+      mongooseError = { ...error };
+
+      // Call the function responsible of handling the error
+      mongooseError = handleValidationError(mongooseError);
 
       // Send response
       sendProdError(mongooseError, res);
