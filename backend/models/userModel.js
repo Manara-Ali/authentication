@@ -47,6 +47,12 @@ const userSchema = new mongoose.Schema(
         message: "Both password and password confirm must be the same!",
       },
     },
+    cartItems: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CartItems",
+      },
+    ],
     isAdmin: {
       type: Boolean,
       default: false,

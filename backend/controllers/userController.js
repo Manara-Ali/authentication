@@ -28,7 +28,9 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 // Create a route to retrieve a single user from the database
 exports.getUser = catchAsync(async (req, res, next) => {
   // Retrieve specific user based on the url parameter
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).populate({
+    path: "cart",
+  });
 
   // Assuming no user was found with that id
   if (!user) {

@@ -10,6 +10,9 @@ const jwt = require("jsonwebtoken");
 // IMPORT USER MODEL
 const User = require("../models/userModel");
 
+// IMPORT THE CARTITEMS MODEL
+const CartItem = require("./../models/cartModel");
+
 // IMPORT CATCH ASYNC
 const catchAsync = require("../utils/catchAsyncFn");
 
@@ -99,7 +102,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // 2. Create a instance method to compare password
   // Use the email to find the current user
-  const user = await User.findOne({ email }).select("+password");
+  const user = await await User.findOne({ email }).select("+password");
 
   // Call the instance method on the user
   if (!user || !(await user.comparePasswords(password, user.password))) {
@@ -115,6 +118,13 @@ exports.login = catchAsync(async (req, res, next) => {
     // Break out of the request/response cycle
     return;
   }
+
+  // Find the user cart
+  const cartItems = await CartItem.find({
+    ownerId: user._id,
+  });
+
+  user.cartItems = cartItems;
 
   // 3. Create jwt token
   createAndSendToken(res, user, 200);

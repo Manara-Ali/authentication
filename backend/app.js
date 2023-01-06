@@ -13,6 +13,9 @@ const productRouter = require("./routers/productsRouter");
 // IMPORT USER ROUTER
 const userRouter = require("./routers/userRouter");
 
+// IMPORT CART ROUTER
+const cartRouter = require("./routers/cartRouter");
+
 // IMPORT ERROR CONTROLLER
 const errorController = require("./controllers/errorController");
 
@@ -35,6 +38,7 @@ if (process.env.NODE_ENV === "development") {
 // Create routes
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/cart", cartRouter);
 
 // Create a catch all route
 app.use((req, res, next) => {

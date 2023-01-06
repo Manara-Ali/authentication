@@ -7,6 +7,9 @@ const authController = require("../controllers/authController");
 // IMPORT USER CONTROLLER
 const userController = require("../controllers/userController");
 
+// IMPORT CART CONTROLLER
+const cartController = require("./../controllers/cartController");
+
 // Use express to create router
 const router = express.Router();
 
