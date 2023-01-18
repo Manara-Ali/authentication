@@ -12,5 +12,7 @@ router
   .get(cartController.getCartItems)
   .post(cartController.createCartItem);
 
+router.route("/empty-cart").get(cartController.emptyCartItems);
+
 // EXPORT ROUTER TO BE USED IN OTHER PARTS OF OUR APPLICATION
 module.exports = router;
